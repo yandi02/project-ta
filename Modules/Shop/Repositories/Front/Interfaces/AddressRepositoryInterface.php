@@ -1,0 +1,12 @@
+<?php
+namespace Modules\Shop\Repositories\Front\Interfaces;
+
+use App\Models\User;
+
+interface AddressRepositoryInterface{
+    public function findByUser(User $user);
+    public function findByID(string $id);
+    public function removeAddress($id);
+    public function addAddress($request);
+}
+?>
