@@ -11,7 +11,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Favicon icon-->
-    <link rel="shortcut icon" type="image/png" href="https://via.placeholder.com/600x300?text=Logo+1" />
+    <link rel="icon" href="{{ asset('img/icon-manifest.jpeg') }}">
 
     <!-- Core Css -->
     <link rel="stylesheet" href="{{ asset('modernize2/css/styles.css') }}" />

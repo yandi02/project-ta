@@ -2,7 +2,7 @@
 @extends('admin.layouts.master')
 
 @section('title')
-    Dashboard
+    Dashboard Admin
 @endsection
 
 @section('content')
@@ -174,7 +174,7 @@
                         <h5 class="fw-semibold text-warning mb-0">{{ $order }}</h5>
                     </div>
                 </div>
-                <a class="btn btn-outline-warning fw-bolder m-3" href="{{ route('pelanggan.index') }}">Lihat
+                <a class="btn btn-outline-warning fw-bolder m-3" href="{{ route('pesanan.index') }}">Lihat
                     Detail</a>
             </div>
         </div>

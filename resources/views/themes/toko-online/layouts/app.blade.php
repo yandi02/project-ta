@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="icon" href="https://via.placeholder.com/600x300?text=Logo+1">
+    <link rel="icon" href="{{ asset('img/icon-manifest.jpeg') }}">
     <!-- Include SweetAlert2 from CDN -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
