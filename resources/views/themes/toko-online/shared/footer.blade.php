@@ -2,7 +2,7 @@
     <div class="container pt-4">
         <div class="row row-content">
             <div class="col-md-6">
-                <h1 class="logo-brand">Test<span>Toko</span></h1>
+                <h1 class="logo-brand">Dapoer<span> Rendang Riry</span></h1>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis qui error praesentium aut accusantium cum quasi. Quasi nulla atque corporis, itaque doloremque eius natus incidunt temporibus ratione, soluta iste amet assumenda quidem, laudantium laborum earum distinctio recusandae odio magnam quos eos? Asperiores quam exercitationem tempore accusantium, quae ipsa quia debitis dolores nihil inventore quibusdam sint nemo tenetur perferendis dolorem. Neque.</p>
             </div>
             {{-- <div class="col-md-3 mt-4 mt-sm-0">

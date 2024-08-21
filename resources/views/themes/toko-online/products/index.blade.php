@@ -48,10 +48,7 @@
                                     </select>
                                 </div> --}}
                                 <div>
-                                    {!! html()->select('sorting', $sortingOptions, $sortingQuery)->class(['form-select'])->attribute(
-                                            'onchange',
-                                            'this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);',
-                                        ) !!}
+                                    {!! html()->select('sorting', $sortingOptions, $sortingQuery)->class(['form-select'])->attribute('onchange','this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);',) !!}
                                 </div>
                             </div>
                         </div>
@@ -60,7 +57,7 @@
                         @forelse ($products as $product)
                             @include('themes.toko-online.products.product-box', ['product' => $product])
                         @empty
-                            <p class="text-danger">Produk Kosong</p>
+                        <h1 class="text-danger text-center" style="margin-top: 240px; margin-bottom: 240px">Sort Harga Tidak Ditemukan</h1>
                         @endforelse
                     </div>
                     <div class="row mt-5">

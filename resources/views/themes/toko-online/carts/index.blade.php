@@ -96,7 +96,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-3 col-md-2 col-lg-2 d-flex justify-content-end">
-                                                <input type="number" name="qty[{{ $item->id }}]"
+                                                <input type="number" id="item-qty" name="qty[{{ $item->id }}]"
                                                     value="{{ $item->qty }}" class="form-control" min="1">
                                             </div>
                                             <div class="col-3 text-lg-end text-md-end col-md-3">
@@ -121,7 +121,7 @@
                                         Perubahan</button> --}}
                                 @else
                                     <a href="{{ route('products.index') }}" class="btn btn-first">Lanjut Belanja</a>
-                                    <button type="submit" id="simpan" class="btn btn-second d-none">Simpan
+                                    <button type="submit" id="simpan-qty" class="btn btn-second d-none">Simpan
                                         Perubahan</button>
                                 @endif
                             </div>
@@ -206,14 +206,13 @@
 
 @push('scripts')
     <script>
-        $('#cart-list [name="qty[{{ $item->id }}]"]').change(function() {
-            $('#simpan').removeClass('d-none');
-        });
-
-
+        $("#cart-list #item-qty").change(function() {
+            $('#simpan-qty').removeClass('d-none');
+        })
+        
         function deleteData(url) {
             Swal.fire({
-                title: 'Yakin ingin menghapus produk terpilih?',
+                title: 'Yakin ingin menghapus produk dari keranjang?',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonText: 'Hapus',

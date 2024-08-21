@@ -69,6 +69,15 @@ class Product extends Model
         return $this->hasOne('Modules\Shop\App\Models\ProductInventory');
     }
 
+    public function reduceInventory($quantity)
+    {
+        $inventory = $this->inventory;
+        if ($inventory) {
+            $inventory->qty -= $quantity;
+            $inventory->save();
+        }
+    }
+
     public function variants() {
         return $this->hasMany('Modules\Shop\App\Models\Product', 'parent_id')->orderBy('price', 'asc');
     }
@@ -129,5 +138,19 @@ class Product extends Model
         }
         
         return null;
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($product) {
+            $product->cartItems()->where('product_id', $product->id)->delete();
+        });
+    }
+
+    public function cartItems()
+    {
+        return $this->hasMany('Modules\Shop\App\Models\CartItem', 'product_id', 'id');
     }
 }

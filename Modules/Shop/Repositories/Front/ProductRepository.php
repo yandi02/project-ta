@@ -89,6 +89,7 @@ class ProductRepository implements ProductRepositoryInterface
         $product = new Product();
         $inventory = new ProductInventory();
 
+        $product->id = (string) Str::uuid();
         $product->user_id = Auth::user()->id;
         $product->sku = $request->sku;
         $product->type = "SIMPLE";
@@ -110,8 +111,12 @@ class ProductRepository implements ProductRepositoryInterface
 
         if ($request->hasFile('foto_produk')) {
             $foto_produk = $request->file('foto_produk');
-            $path = $foto_produk->store('public/img');
-            $product->featured_image = basename($path);
+            
+            $nama_file = 'foto-produk-' . $request->sku . '.' . $foto_produk->getClientOriginalExtension();
+
+            $path_foto = $foto_produk->storeAs('public/img', $nama_file);
+
+            $product->featured_image = basename($path_foto);
         } else {
             $product->featured_image = null;
         }
@@ -124,7 +129,7 @@ class ProductRepository implements ProductRepositoryInterface
 
         if (empty($request->stock)) {
             $inventory->qty = 0;
-        }else{
+        } else {
             $inventory->qty = $request->stock;
         }
         $inventory->product_id = $product->id;
@@ -154,16 +159,28 @@ class ProductRepository implements ProductRepositoryInterface
         $product->manage_stock = ($product->stock_status == 'IN_STOCK') ? 1 : 0;
 
         if ($request->hasFile('foto_produk')) {
+            $foto_lama = $product->getOriginal('featured_image');
+            if ($foto_lama) {
+                $path_foto_lama = public_path('storage/img/' . $foto_lama);
+                if (file_exists($path_foto_lama)) {
+                    unlink($path_foto_lama);
+                }
+            }
+
             $foto_produk = $request->file('foto_produk');
-            $path = $foto_produk->store('public/img');
-            $product->featured_image = basename($path);
-        }else{
+
+            $nama_file = 'foto-produk-' . $request->sku . '.' . $foto_produk->getClientOriginalExtension();
+
+            $path_foto = $foto_produk->storeAs('public/img', $nama_file);
+
+            $product->featured_image = basename($path_foto);
+        } else {
             $product->featured_image = $product->getOriginal('featured_image');
         }
-        
+
         $product->publish_date = now();
         $product->excerpt = $request->description;
-        
+
         // dd($product);
         $product->update();
 
@@ -171,7 +188,7 @@ class ProductRepository implements ProductRepositoryInterface
 
         if (empty($request->stock)) {
             $inventory->qty = 0;
-        }else{
+        } else {
             $inventory->qty = $request->stock;
         }
         $inventory->update();
@@ -180,8 +197,16 @@ class ProductRepository implements ProductRepositoryInterface
     public function deleteData($id)
     {
         $product = Product::find($id);
-        $product->categories()->detach();
-        $product->tags()->detach();
-        $product->delete();
+
+        if ($product) {
+            $imagePath = public_path('storage/img/' . $product->featured_image);
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
+
+            $product->categories()->detach();
+            $product->tags()->detach();
+            $product->delete();
+        }
     }
 }

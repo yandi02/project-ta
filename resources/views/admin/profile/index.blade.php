@@ -1,4 +1,4 @@
-@extends('tes.layouts.master')
+@extends('admin.layouts.master')
 
 @section('title')
     Profile

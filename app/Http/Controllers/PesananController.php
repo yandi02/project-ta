@@ -32,9 +32,19 @@ class PesananController extends Controller
         return datatables()
             ->of($pesanan)
             ->addIndexColumn()
+            ->addColumn('status', function ($pesanan) {
+                if ($pesanan->status == Order::STATUS_PENDING) {
+                    return '<span class="badge bg-warning text-white">' . $pesanan->status . '</span>';
+                }elseif ($pesanan->status == Order::STATUS_CONFIRMED) {
+                    return '<span class="badge bg-success text-white">' . $pesanan->status . '</span>';
+                }elseif ($pesanan->status == Order::STATUS_CANCELLED) {
+                    return '<span class="badge bg-danger text-white">' . $pesanan->status . '</span>';
+                }
+            })            
             ->addColumn('grand_total', function ($pesanan) {
                 return 'Rp. ' . number_format($pesanan->grand_total, 2, ',', '.');
             })
+            ->rawColumns(['status'])
             ->make(true);
     }
 

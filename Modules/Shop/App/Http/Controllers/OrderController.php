@@ -10,7 +10,9 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Modules\Shop\App\Models\Cart;
+use Modules\Shop\App\Models\CartItem;
 use Modules\Shop\App\Models\Cities;
+use Modules\Shop\App\Models\Product;
 use Modules\Shop\App\Models\Provinces;
 use Modules\Shop\Repositories\Front\Interfaces\AddressRepositoryInterface;
 use Modules\Shop\Repositories\Front\Interfaces\CartRepositoryInterface;
@@ -86,6 +88,16 @@ class OrderController extends Controller
         DB::beginTransaction();
         try {
             $order = $this->orderRepository->create($request->user(), $cart, $address, $selectedShipping);
+            foreach ($cart->items as $item) {
+                $product = $item->product;
+            
+                if ($product->stock >= $item->quantity) {
+                    $product->reduceInventory($item->quantity);
+                } else {
+                    return back()->with('error', 'Stock is insufficient for product: ' . $product->name);
+                }
+            }
+            
             // dd($order->toArray());
         } catch (\Exception $e) {
             DB::rollBack();

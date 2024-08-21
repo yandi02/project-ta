@@ -40,7 +40,7 @@
                             <div class="d-flex justify-content-between">
                                 <h5 class="mb-0"><i class='bx bx-map'></i> Alamat Pengiriman</h5>
                                 <button onclick="addForm('{{ route('alamat.simpanAlamat') }}')"
-                                class="btn btn-outline-danger btn-sm">Tambah Alamat</button>
+                                    class="btn btn-outline-danger btn-sm">Tambah Alamat</button>
                             </div>
                             <form action="{{ route('orders.checkout') }}" method="POST">
                                 @csrf
@@ -122,7 +122,8 @@
                                         @if ($totalItems == 0)
                                             <button class="btn btn-first" disabled>Buat Pesanan</button>
                                         @else
-                                            <button type="submit" class="btn btn-first">Buat Pesanan</button>
+                                            <button type="submit" id="place-order" class="btn btn-first" disabled>Buat
+                                                Pesanan</button>
                                         @endif
                                     @endif
                                 </div>
@@ -222,6 +223,8 @@
 
 @push('scripts')
     <script>
+        
+
         function addForm(url) {
             $('#modal-form').modal('show');
             $('#modal-form .modal-title').html('<i class="nav-icon fas fa-cube"></i> Tambah Alamat');

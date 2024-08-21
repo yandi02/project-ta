@@ -61,7 +61,7 @@
                         @forelse ($products as $product)
                             @include('themes.toko-online.products.product-box', ['product' => $product])
                         @empty
-                            <h1 class="text-danger text-center" style="margin-top: 240px">Produk Kosong</h1>
+                            <h1 class="text-danger text-center" style="margin-top: 240px; margin-bottom: 240px">Produk Kosong</h1>
                         @endforelse
 
                     </div>

@@ -1,6 +1,7 @@
 <nav class="navbar navbar-expand-lg bg-white fixed-top shadow-sm">
     <div class="container">
-        <a class="navbar-brand display-6 me-1" href="{{ route('toko') }}">D<span>RR</span></a>
+        {{-- <a class="navbar-brand display-6 me-1" href="{{ route('toko') }}">D<span>RR</span></a> --}}
+        <a class="navbar-brand display-6 me-1" href="{{ route('toko') }}"><img src="{{ asset('img/logo2.jpeg') }}" width="100"></a>
         <div class="menu d-flex justify-content-center align-items-center mx-2">
             <a class="btn-nav active px-0 mx-2" href="{{ route('toko') }}">Beranda</a>
             <a class="btn-nav px-0 mx-2" href="{{ route('products.index') }}">Produk</a>
@@ -40,7 +41,7 @@
                 @if (auth()->check())
                     <li class="nav-item dropdown">
                         <a class="nav-link" href="javascript:void(0)" id="drop1" data-bs-toggle="dropdown"
-                            style="margin-left: 170px" aria-expanded="false">
+                            style="margin-left: 115px" aria-expanded="false">
                             <div class="d-flex align-items-center">
                                 <div class="user-profile-img">
                                     @if (Auth::user()->foto)

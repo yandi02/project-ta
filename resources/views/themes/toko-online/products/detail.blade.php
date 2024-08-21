@@ -16,7 +16,7 @@
             <div class="row">
                 <div class="col-md-6">
                     @if ($product->featured_image)
-                        <img src="{{ asset('storage/img/' . $product->featured_image) }}" width="500" height="540"
+                        <img src="{{ asset('storage/img/' . $product->featured_image) }}" width="550" height="540"
                             alt="Product 1">
                     @elseif ($product->featured_image == null)
                         <img src="https://via.placeholder.com/600x800?text=Foto+Produk" alt="" class="img-fluid">

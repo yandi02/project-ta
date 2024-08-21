@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use Modules\Shop\App\Http\Controllers\{
     CartController,
     OrderController,
+    PaymentController,
     ShopController,
     ProductController,
 };
@@ -47,6 +48,7 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/carts', [CartController::class, 'update'])->name('carts.update');
 });
 
+Route::post('/payments/midtrans', [PaymentController::class, 'midtrans'])->name('payments.midtrans');
 
 Route::group([], function () {
     Route::resource('shop', ShopController::class)->names('shop');

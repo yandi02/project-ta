@@ -86,7 +86,7 @@
                             <div class="img-container">
                                 <a href="{{ shop_product_link($product) }}">
                                     @if ($product->featured_image)
-                                        <img src="https://via.placeholder.com/600x800?text=Foto+Produk" alt="Foto Produk"
+                                        <img src="{{ asset('storage/img/' . $product->featured_image) }}" alt="Foto Produk"
                                             class="img-fluid">
                                     @elseif ($product->featured_image == null)
                                         <img src="https://via.placeholder.com/600x800?text=Foto+Produk" alt=""

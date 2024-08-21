@@ -8,9 +8,9 @@
         <!-- Start Vertical Layout Sidebar -->
         <!-- ---------------------------------- -->
         <div class="brand-logo d-flex align-items-center justify-content-center">
-            <a href="{{ route('home') }}" class="text-nowrap logo-img ">
-                <h2 class="text-center mt-2 fw-bolder">D<span class="text-red">RR</span></h2>
-                {{-- <img src="https://via.placeholder.com/220x35?text=Logo" alt="Logo" /> --}}
+            <a href="{{ route('home') }}" class="text-nowrap logo-img">
+                {{-- <h2 class="text-center mt-2 fw-bolder">D<span class="text-red">RR</span></h2> --}}
+                <img src="{{ asset('img/logo2.jpeg') }}" width="100" alt="Logo" />
                 {{-- <img class="text-center" src="#" alt="Logo" /> --}}
                 {{-- <img src="{{ asset('modernize2/images/dark-logo.svg') }}" class="dark-logo" alt="Logo-Dark" />  
                 <img src="{{ asset('modernize2/images/light-logo.svg') }}" class="light-logo" alt="Logo-light" />    --}}
@@ -69,7 +69,7 @@
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ route('pesanan.index') }}" aria-expanded="false">
                         <span>
-                            <i class="ti ti-package"></i>
+                            <i class="ti ti-shopping-cart"></i>
                         </span>
                         <span class="hide-menu">Data Pesanan</span>
                     </a>

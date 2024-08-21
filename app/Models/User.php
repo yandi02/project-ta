@@ -66,13 +66,11 @@ class User extends Authenticatable
         parent::boot();
 
         static::deleting(function ($user) {
-            // Hapus item dalam cart jika cart ada
             if ($user->shopCart) {
-                $user->shopCart->items()->delete();  // Hapus semua item dalam cart
-                $user->shopCart()->delete();         // Hapus cart itu sendiri
+                $user->shopCart->items()->delete();
+                $user->shopCart()->delete();
             }
 
-            // Hapus alamat terkait jika ada
             $user->shopAddresses()->delete();
         });
     }

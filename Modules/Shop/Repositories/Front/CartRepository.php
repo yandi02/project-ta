@@ -100,11 +100,12 @@ class CartRepository implements CartRepositoryInterface{
 
     public function clear(User $user) : void {
         $cart = Cart::where('user_id', $user->id)->first();
-        
-        if ($cart) {
-            CartItem::where('cart_id', $cart->id)->delete();
-            $cart->delete();
-        }
+        CartItem::where('cart_id', $cart->id)->delete();
+        $cart->delete();
+        // if ($cart) {
+        //     CartItem::where('cart_id', $cart->id)->delete();
+        //     $cart->delete();
+        // }
     }
 
     public function updateQty($items = [])
@@ -112,8 +113,14 @@ class CartRepository implements CartRepositoryInterface{
         if (!empty($items)) {
             foreach ($items as $itemID => $qty) {
                 $item = CartItem::where('id', $itemID)->first();
+                $product = $item->product;
+                $productStock = $item->product->stock;
 
                 if ($item) {
+                    if ($qty > $productStock) {
+                        return back()->with('error', 'Stok ' . $product->name . ' tidak mencukupi');
+                    }
+
                     $item->qty = $qty;
                     $item->save();
                 }

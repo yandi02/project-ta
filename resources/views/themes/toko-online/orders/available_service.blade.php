@@ -22,16 +22,18 @@
                     $addressID = $service['address_id'];
 
                 @endphp
-                <input class="form-check-input delivery-package" type="radio" name="delivery_package" id="inlineRadio2" value="{{ $service['service'] }}" onclick="setShippingFee('{{ $serviceName }}', '{{ $courier }}', '{{ $addressID }}')">
+                <input class="form-check-input delivery-package" type="radio" name="delivery_package"
+                    id="delivery-package" value="{{ $service['service'] }}"
+                    onclick="setShippingFee('{{ $serviceName }}', '{{ $courier }}', '{{ $addressID }}')">
             </div>
             <div class="col-4 col-md-4 col-lg-5">
-                {{$service['service']}} ({{$service['description']}})
+                {{ $service['service'] }} ({{ $service['description'] }})
             </div>
             <div class="col-3 col-md-2 col-lg-3">
-                {{$service['etd']}}
+                {{ $service['etd'] }}
             </div>
             <div class="col-3 text-lg-end text-start text-md-end col-md-3">
-                <span class="fw-bold">Rp. {{$service['cost']}},00</span>
+                <span class="fw-bold">Rp. {{ $service['cost'] }},00</span>
             </div>
         </div>
     </li>
@@ -44,6 +46,10 @@
 @endforelse
 
 <script type="text/javascript">
+    $('.delivery-package').click(function() {
+        $('#place-order').removeAttr('disabled');
+    });
+
     function setShippingFee(deliveryPackage, courier, addressID) {
         $.ajax({
             url: "/orders/choose-package",
@@ -54,13 +60,13 @@
                 address_id: addressID,
                 _token: $('meta[name="csrf-token"]').attr('content'),
             },
-            success: function (result) {
+            success: function(result) {
                 $('#shipping-fee').html("Rp. " + result.shipping_fee);
                 $('#grand-total').html("Rp. " + result.grand_total);
                 // console.log(result);
-                
+
             },
-            error: function (e) {
+            error: function(e) {
                 console.log(e);
             }
         });

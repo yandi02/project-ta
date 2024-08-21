@@ -20,8 +20,8 @@ class ProfileController extends Controller
     public function profile_user()
     {
         $this->data['user'] = auth()->user();
-        $this->data['province'] = Provinces::all()->pluck( 'province_name', 'province_id' );
-        $this->data['city'] = Cities::all()->pluck( 'city_name', 'city_id' );
+        $this->data['province'] = Provinces::all()->pluck('province_name', 'province_id');
+        $this->data['city'] = Cities::all()->pluck('city_name', 'city_id');
 
         //ambil data cart item berdasarkan user yang sedang login
         $cart = Cart::where('user_id', auth()->id())->first();
@@ -40,8 +40,8 @@ class ProfileController extends Controller
     public function profile_admin()
     {
         $this->data['user'] = auth()->user();
-        $this->data['province'] = Provinces::all()->pluck( 'province_name', 'province_id' );
-        $this->data['city'] = Cities::all()->pluck( 'city_name', 'city_id' );
+        $this->data['province'] = Provinces::all()->pluck('province_name', 'province_id');
+        $this->data['city'] = Cities::all()->pluck('city_name', 'city_id');
 
         return view('admin.profile.index', $this->data);
     }
@@ -85,7 +85,7 @@ class ProfileController extends Controller
     public function update(Request $request)
     {
         $user = auth()->user();
-        
+
         $user->name = $request->name;
         $user->email = $request->email;
         $user->nohp = $request->nohp;
@@ -104,13 +104,26 @@ class ProfileController extends Controller
             } else {
                 return response()->json(['error' => 'Password lama tidak sesuai'], 422);
             }
-        }        
+        }
 
         if ($request->hasFile('foto-user')) {
-            $foto_produk = $request->file('foto-user');
-            $path = $foto_produk->store('public/img');
+            $foto_lama = $user->foto;
+            if ($foto_lama) {
+                $path_foto_lama = public_path('storage/img/' . $foto_lama);
+                if (file_exists($path_foto_lama)) {
+                    unlink($path_foto_lama);
+                }
+            }
+
+            $foto_user = $request->file('foto-user');
+
+            $angka_acak = rand(1000, 9999);
+            $nama_file = 'foto-user-' . $angka_acak . '.' . $foto_user->getClientOriginalExtension();
+
+            $path = $foto_user->storeAs('public/img', $nama_file);
+
             $user->foto = basename($path);
-        }else{
+        } else {
             $user->foto = null;
         }
         // dd($user);
